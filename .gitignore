@@ -1,0 +1,5 @@
+# Project exclude paths
+/driver-service/target/
+/order-service/target/
+/passenger-service/target/
+/trip-service/target/

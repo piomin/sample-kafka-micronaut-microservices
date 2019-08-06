@@ -1,0 +1,20 @@
+micronaut:
+  application:
+    name: order-service
+
+kafka:
+  bootstrap:
+    servers: 192.168.99.100:9092
+
+endpoints:
+  all:
+    enabled: true
+    sensitive: false
+
+tracing:
+  zipkin:
+    enabled: true
+    http:
+      url: http://192.168.99.100:9411
+    sampler:
+      probability: 1
