@@ -25,8 +25,12 @@ public class OrderInMemoryRepository {
         orders.add(order);
     }
 
+    public Optional<Order> findById(Long id) {
+        return orders.stream().filter(order -> order.getId().equals(id)).findAny();
+    }
+
     public Optional<Order> findByTripIdAndType(Long tripId, OrderType type) {
-        return orders.stream().filter(order -> order.getTripId().equals(tripId) && order.getType() == type).findAny();
+        return orders.stream().filter(order -> order.getTripId() != null && order.getTripId().equals(tripId) && order.getType() == type).findAny();
     }
 
     public Optional<Order> findNewestByUserIdAndType(Long userId, OrderType type) {

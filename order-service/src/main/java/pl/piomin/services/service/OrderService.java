@@ -26,7 +26,7 @@ public class OrderService {
         Optional<Order> foundOrder = repository.findByTripIdAndType(order.getTripId(), OrderType.PAYMENT_PROCESSED);
         foundOrder.ifPresentOrElse(localOrder -> {
             localOrder.setStatus(OrderStatus.COMPLETED);
-            repository.update(order);
+            repository.update(localOrder);
         }, () -> repository.add(order));
     }
 
