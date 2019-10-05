@@ -24,7 +24,7 @@ public class DriverListener {
     @Topic("drivers")
     public void receive(@Body Driver driver, @Header("Order-Id") String orderId) {
         LOGGER.info("Received: driver->{}, header->{}", driver, orderId);
-        service.processNewDriver(driver);
+        service.processNewDriver(driver, orderId);
     }
 
 }

@@ -125,6 +125,18 @@
                     </arguments>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>12</source>
+                    <target>12</target>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                        <arg>--enable-preview</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -162,6 +174,7 @@
                             <configuration>
                                 <compilerArgs>
                                     <arg>-parameters</arg>
+                                    <arg>--enable-preview</arg>
                                 </compilerArgs>
                                 <annotationProcessorPaths>
                                     <path>
