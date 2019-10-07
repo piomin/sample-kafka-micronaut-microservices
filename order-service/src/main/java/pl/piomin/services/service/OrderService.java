@@ -24,19 +24,23 @@ public class OrderService {
     public void processPaymentProcessedOrder(Order order) {
         LOGGER.info("Processing: {}", order);
         Optional<Order> foundOrder = repository.findByTripIdAndType(order.getTripId(), OrderType.PAYMENT_PROCESSED);
-        foundOrder.ifPresentOrElse(localOrder -> {
-            localOrder.setStatus(OrderStatus.COMPLETED);
-            repository.update(localOrder);
-        }, () -> repository.add(order));
+        if (foundOrder.isPresent()) {
+            Order o = foundOrder.get();
+            o.setStatus(OrderStatus.COMPLETED);
+            repository.update(o);
+        } else {
+            repository.add(order);
+        }
     }
 
     public void processCancelTripOrder(Order order) {
         LOGGER.info("Processing: {}", order);
         Optional<Order> foundOrder = repository.findNewestByUserIdAndType(order.getUserId(), OrderType.NEW_TRIP);
-        foundOrder.ifPresent(localOrder -> {
-            localOrder.setStatus(OrderStatus.REJECTED);
+        if (foundOrder.isPresent()) {
+            Order o = foundOrder.get();
+            o.setStatus(OrderStatus.REJECTED);
             repository.update(order);
-        });
+        };
     }
 
 }

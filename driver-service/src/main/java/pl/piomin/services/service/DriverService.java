@@ -33,12 +33,13 @@ public class DriverService {
     public void processNewTripOrder(Order order) {
         LOGGER.info("Processing: {}", order);
         Optional<Driver> driver = repository.findNearestDriver(order.getCurrentLocationX(), order.getCurrentLocationY());
-        driver.ifPresent(driverLocal -> {
+        if (driver.isPresent()) {
+            Driver driverLocal = driver.get();
             driverLocal.setStatus(DriverStatus.UNAVAILABLE);
             repository.updateDriver(driverLocal);
             client.send(driverLocal, String.valueOf(order.getId()));
             LOGGER.info("Message sent: {}", driverLocal);
-        });
+        }
     }
 
     public void processTripRejected(Trip trip) {
@@ -53,12 +54,13 @@ public class DriverService {
     public void processTripFinished(Trip trip) {
         LOGGER.info("Processing: {}", trip);
         Optional<Driver> driver = repository.findById(trip.getDriverId());
-        driver.ifPresent(driverLocal -> {
+        if (driver.isPresent()) {
+            Driver driverLocal = driver.get();
             driverLocal.setBalance(driverLocal.getBalance() + trip.getPrice());
             repository.updateDriver(driverLocal);
             Order order = new Order(OrderType.PAYMENT_PROCESSED, driverLocal.getId(), trip.getId());
             orderClient.send(order);
             LOGGER.info("Message sent: {}", order);
-        });
+        }
     }
 }

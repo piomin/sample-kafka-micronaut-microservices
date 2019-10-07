@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Singleton
 public class DriverInMemoryRepository {
@@ -25,6 +26,10 @@ public class DriverInMemoryRepository {
 
     public Optional<Driver> findById(Long id) {
         return drivers.stream().filter(driver -> driver.getId().equals(id)).findAny();
+    }
+
+    public Set<Driver> findByStatus(DriverStatus status) {
+        return drivers.stream().filter(driver -> driver.getStatus() == status).collect(Collectors.toSet());
     }
 
     public void updateDriver(Driver driver) {
