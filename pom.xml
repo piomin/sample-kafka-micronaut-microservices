@@ -16,10 +16,10 @@
     </properties>
 
     <modules>
-        <module>order-service</module>
         <module>trip-service</module>
         <module>driver-service</module>
         <module>passenger-service</module>
+        <module>order-service</module>
     </modules>
 
     <dependencyManagement>
