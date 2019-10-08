@@ -1,5 +1,9 @@
 package pl.piomin.services;
 
+import com.github.dockerjava.api.command.CreateContainerCmd;
+import com.github.dockerjava.api.model.ExposedPort;
+import com.github.dockerjava.api.model.PortBinding;
+import com.github.dockerjava.api.model.Ports;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.env.PropertySource;
 import io.micronaut.core.util.CollectionUtils;
@@ -10,7 +14,9 @@ import org.junit.Rule;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.containers.Network;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.piomin.services.client.OrderClient;
@@ -27,8 +33,27 @@ public class OrderKafkaContainerTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderKafkaContainerTest.class);
 
-    @Container
-    private static final KafkaContainer KAFKA_CONTAINER = new KafkaContainer();
+//    @Container
+//    private static final KafkaContainer KAFKA_CONTAINER = new KafkaContainer();
+
+    static Network network = Network.newNetwork();
+
+	@Container
+	public static final GenericContainer ZOOKEEPER = new GenericContainer("wurstmeister/zookeeper")
+			.withCreateContainerCmdModifier(it -> ((CreateContainerCmd) it).withName("zookeeper").withHostName("zookeeper"))
+			.withExposedPorts(2181)
+			.withNetworkAliases("zookeeper")
+			.withNetwork(network);
+
+	@Container
+	public static final GenericContainer KAFKA_CONTAINER = new GenericContainer("wurstmeister/kafka")
+			.withCreateContainerCmdModifier(it -> ((CreateContainerCmd) it).withName("kafka").withHostName("kafka")
+                    .withPortBindings(new PortBinding(Ports.Binding.bindPort(9092), new ExposedPort(9092))))
+			.withExposedPorts(9092)
+			.withNetworkAliases("kafka")
+			.withEnv("KAFKA_ADVERTISED_HOST_NAME", "192.168.99.100")
+			.withEnv("KAFKA_ZOOKEEPER_CONNECT", "zookeeper:2181")
+			.withNetwork(network);
 
     @Inject
     OrderClient client;
@@ -36,16 +61,6 @@ public class OrderKafkaContainerTest {
     OrderInMemoryRepository repository;
     @Inject
     OrderHolder orderHolder;
-    private static EmbeddedServer server;
-    ApplicationContext context;
-
-
-    @BeforeAll
-    public static void before() {
-        server = ApplicationContext.run(EmbeddedServer.class, PropertySource.of("test", CollectionUtils.mapOf(
-                "kafka.bootstrap.servers", "192.168.99.100:" + KAFKA_CONTAINER.getMappedPort(9092))
-        ));
-    }
 
     @Test
     @org.junit.jupiter.api.Order(1)
@@ -63,13 +78,6 @@ public class OrderKafkaContainerTest {
         orderHolder.setCurrentOrder(null);
         Assertions.assertNotNull(orderSent);
         Assertions.assertEquals(order.getId(), orderSent.getId());
-    }
-
-    @AfterAll
-    public static void stopServer() throws InterruptedException {
-        if (server != null) {
-            server.stop();
-        }
     }
 
 }

@@ -46,10 +46,10 @@ public class DriverKafkaEmbeddedTest {
         LOGGER.info("Topics: {}", kafkaEmbedded.getKafkaServer().get().zkClient().getAllTopicsInCluster());
     }
 
-//    @Test
-//    @org.junit.jupiter.api.Order(1)
-    public void testNewTrip() throws InterruptedException {
-        Order o = new Order(OrderType.NEW_TRIP, 1L, 1L);
+    @Test
+    @org.junit.jupiter.api.Order(1)
+    public void testWaiting() throws InterruptedException {
+        Order o = new Order(OrderType.NEW_DRIVER, 1L, 1L);
         orderClient.send(o);
         Driver driverSent = null;
         for (int i = 0; i < 10; i++) {
@@ -59,9 +59,9 @@ public class DriverKafkaEmbeddedTest {
             Thread.sleep(1000);
         }
         driverHolder.setCurrentDriver(null);
-        Assertions.assertNotNull(driverSent);
+        Assertions.assertNull(driverSent);
         Set<Driver> drivers = repository.findByStatus(DriverStatus.UNAVAILABLE);
-        Assertions.assertEquals(1, drivers.size());
+        Assertions.assertEquals(0, drivers.size());
     }
 
     @Test
@@ -83,6 +83,24 @@ public class DriverKafkaEmbeddedTest {
         Assertions.assertEquals(DriverStatus.AVAILABLE, driver.get().getStatus());
         Assertions.assertNotNull(orderSent);
         Assertions.assertEquals(1L, orderSent.getTripId());
+    }
+
+    @Test
+    @org.junit.jupiter.api.Order(3)
+    public void testNewTrip() throws InterruptedException {
+        Order o = new Order(OrderType.NEW_TRIP, 1L, 1L);
+        orderClient.send(o);
+        Driver driverSent = null;
+        for (int i = 0; i < 10; i++) {
+            driverSent = driverHolder.getCurrentDriver();
+            if (driverSent != null)
+                break;
+            Thread.sleep(1000);
+        }
+        driverHolder.setCurrentDriver(null);
+        Assertions.assertNotNull(driverSent);
+        Set<Driver> drivers = repository.findByStatus(DriverStatus.UNAVAILABLE);
+        Assertions.assertEquals(1, drivers.size());
     }
 
 }
