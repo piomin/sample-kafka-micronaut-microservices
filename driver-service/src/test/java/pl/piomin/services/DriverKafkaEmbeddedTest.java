@@ -49,58 +49,58 @@ public class DriverKafkaEmbeddedTest {
 //    @Test
 //    @org.junit.jupiter.api.Order(1)
     public void testWaiting() throws InterruptedException {
-        Order o = new Order(OrderType.NEW_DRIVER, 1L, 1L);
-        orderClient.send(o);
-        Driver driverSent = null;
-        for (int i = 0; i < 10; i++) {
-            driverSent = driverHolder.getCurrentDriver();
-            if (driverSent != null)
-                break;
-            Thread.sleep(1000);
-        }
-        driverHolder.setCurrentDriver(null);
-        Assertions.assertNull(driverSent);
-        Set<Driver> drivers = repository.findByStatus(DriverStatus.UNAVAILABLE);
-        Assertions.assertEquals(0, drivers.size());
+//        Order o = new Order(OrderType.NEW_DRIVER, 1L, 1L);
+//        orderClient.send(o);
+//        Driver driverSent = null;
+//        for (int i = 0; i < 10; i++) {
+//            driverSent = driverHolder.getCurrentDriver();
+//            if (driverSent != null)
+//                break;
+//            Thread.sleep(1000);
+//        }
+//        driverHolder.setCurrentDriver(null);
+//        Assertions.assertNull(driverSent);
+//        Set<Driver> drivers = repository.findByStatus(DriverStatus.UNAVAILABLE);
+//        Assertions.assertEquals(0, drivers.size());
     }
 
 //    @Test
 //    @org.junit.jupiter.api.Order(2)
     public void testFinishTrip() throws InterruptedException {
-        Trip trip = new Trip(1L, 30.0F, 40.0F, 1L, 1L);
-        trip.setStatus(TripStatus.FINISHED);
-        tripClient.send(trip);
-        Order orderSent = null;
-        for (int i = 0; i < 10; i++) {
-            orderSent = orderHolder.getCurrentOrder();
-            if (orderSent != null)
-                break;
-            Thread.sleep(1000);
-        }
-        orderHolder.setCurrentOrder(null);
-        Optional<Driver> driver = repository.findById(trip.getDriverId());
-        Assertions.assertTrue(driver.isPresent());
-        Assertions.assertEquals(DriverStatus.AVAILABLE, driver.get().getStatus());
-        Assertions.assertNotNull(orderSent);
-        Assertions.assertEquals(1L, orderSent.getTripId());
+//        Trip trip = new Trip(1L, 30.0F, 40.0F, 1L, 1L);
+//        trip.setStatus(TripStatus.FINISHED);
+//        tripClient.send(trip);
+//        Order orderSent = null;
+//        for (int i = 0; i < 10; i++) {
+//            orderSent = orderHolder.getCurrentOrder();
+//            if (orderSent != null)
+//                break;
+//            Thread.sleep(1000);
+//        }
+//        orderHolder.setCurrentOrder(null);
+//        Optional<Driver> driver = repository.findById(trip.getDriverId());
+//        Assertions.assertTrue(driver.isPresent());
+//        Assertions.assertEquals(DriverStatus.AVAILABLE, driver.get().getStatus());
+//        Assertions.assertNotNull(orderSent);
+//        Assertions.assertEquals(1L, orderSent.getTripId());
     }
 
 //    @Test
 //    @org.junit.jupiter.api.Order(3)
     public void testNewTrip() throws InterruptedException {
-        Order o = new Order(OrderType.NEW_TRIP, 1L, 1L);
-        orderClient.send(o);
-        Driver driverSent = null;
-        for (int i = 0; i < 10; i++) {
-            driverSent = driverHolder.getCurrentDriver();
-            if (driverSent != null)
-                break;
-            Thread.sleep(1000);
-        }
-        driverHolder.setCurrentDriver(null);
-        Assertions.assertNotNull(driverSent);
-        Set<Driver> drivers = repository.findByStatus(DriverStatus.UNAVAILABLE);
-        Assertions.assertEquals(1, drivers.size());
+//        Order o = new Order(OrderType.NEW_TRIP, 1L, 1L);
+//        orderClient.send(o);
+//        Driver driverSent = null;
+//        for (int i = 0; i < 10; i++) {
+//            driverSent = driverHolder.getCurrentDriver();
+//            if (driverSent != null)
+//                break;
+//            Thread.sleep(1000);
+//        }
+//        driverHolder.setCurrentDriver(null);
+//        Assertions.assertNotNull(driverSent);
+//        Set<Driver> drivers = repository.findByStatus(DriverStatus.UNAVAILABLE);
+//        Assertions.assertEquals(1, drivers.size());
     }
 
 }
