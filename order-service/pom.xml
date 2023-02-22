@@ -169,42 +169,42 @@
 					<target>${jdk.version}</target>
 				</configuration>
 			</plugin>
-            <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.31.0</version>
-                <configuration>
-                    <images>
-                        <image>
-                            <name>piomin/order-service:${project.version}</name>
-                            <build>
-                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
-                                <tags>
-                                    <tag>latest</tag>
-                                    <tag>${project.version}</tag>
-                                </tags>
-                            </build>
-                        </image>
-                    </images>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>start</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>build</goal>
-                            <goal>start</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>stop</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>io.fabric8</groupId>-->
+<!--                <artifactId>docker-maven-plugin</artifactId>-->
+<!--                <version>0.31.0</version>-->
+<!--                <configuration>-->
+<!--                    <images>-->
+<!--                        <image>-->
+<!--                            <name>piomin/order-service:${project.version}</name>-->
+<!--                            <build>-->
+<!--                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>-->
+<!--                                <tags>-->
+<!--                                    <tag>latest</tag>-->
+<!--                                    <tag>${project.version}</tag>-->
+<!--                                </tags>-->
+<!--                            </build>-->
+<!--                        </image>-->
+<!--                    </images>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>start</id>-->
+<!--                        <phase>pre-integration-test</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                            <goal>start</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>stop</id>-->
+<!--                        <phase>post-integration-test</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>stop</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 		</plugins>
         <pluginManagement>
             <plugins>
@@ -242,7 +242,6 @@
                             <configuration>
                                 <compilerArgs>
                                     <arg>-parameters</arg>
-                                    <arg>--enable-preview</arg>
                                 </compilerArgs>
                                 <annotationProcessorPaths>
                                     <path>

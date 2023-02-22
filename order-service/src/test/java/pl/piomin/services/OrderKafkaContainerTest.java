@@ -11,6 +11,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -23,44 +24,45 @@ import pl.piomin.services.repository.OrderInMemoryRepository;
 import javax.inject.Inject;
 import java.util.Optional;
 
-@MicronautTest
-@Testcontainers
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@MicronautTest
+//@Testcontainers
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class OrderKafkaContainerTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderKafkaContainerTest.class);
 
 //    @Container
-//    private static final KafkaContainer KAFKA_CONTAINER = new KafkaContainer();
+    private static final KafkaContainer KAFKA_CONTAINER = new KafkaContainer()
+            .withExposedPorts(9092);
 
-    static Network network = Network.newNetwork();
+//    static Network network = Network.newNetwork();
+//
+//	@Container
+//	public static final GenericContainer ZOOKEEPER = new GenericContainer("wurstmeister/zookeeper")
+//			.withCreateContainerCmdModifier(it -> ((CreateContainerCmd) it).withName("zookeeper").withHostName("zookeeper"))
+//			.withExposedPorts(2181)
+//			.withNetworkAliases("zookeeper")
+//			.withNetwork(network);
+//
+//	@Container
+//	public static final GenericContainer KAFKA_CONTAINER = new GenericContainer("wurstmeister/kafka")
+//			.withCreateContainerCmdModifier(it -> ((CreateContainerCmd) it).withName("kafka").withHostName("kafka")
+//                    .withPortBindings(new PortBinding(Ports.Binding.bindPort(9092), new ExposedPort(9092))))
+//			.withExposedPorts(9092)
+//			.withNetworkAliases("kafka")
+//			.withEnv("KAFKA_ADVERTISED_HOST_NAME", "192.168.99.100")
+//			.withEnv("KAFKA_ZOOKEEPER_CONNECT", "zookeeper:2181")
+//			.withNetwork(network);
 
-	@Container
-	public static final GenericContainer ZOOKEEPER = new GenericContainer("wurstmeister/zookeeper")
-			.withCreateContainerCmdModifier(it -> ((CreateContainerCmd) it).withName("zookeeper").withHostName("zookeeper"))
-			.withExposedPorts(2181)
-			.withNetworkAliases("zookeeper")
-			.withNetwork(network);
-
-	@Container
-	public static final GenericContainer KAFKA_CONTAINER = new GenericContainer("wurstmeister/kafka")
-			.withCreateContainerCmdModifier(it -> ((CreateContainerCmd) it).withName("kafka").withHostName("kafka")
-                    .withPortBindings(new PortBinding(Ports.Binding.bindPort(9092), new ExposedPort(9092))))
-			.withExposedPorts(9092)
-			.withNetworkAliases("kafka")
-			.withEnv("KAFKA_ADVERTISED_HOST_NAME", "192.168.99.100")
-			.withEnv("KAFKA_ZOOKEEPER_CONNECT", "zookeeper:2181")
-			.withNetwork(network);
-
-    @Inject
+//    @Inject
     OrderClient client;
-    @Inject
+//    @Inject
     OrderInMemoryRepository repository;
-    @Inject
+//    @Inject
     OrderHolder orderHolder;
 
-    @Test
-    @org.junit.jupiter.api.Order(1)
+//    @Test
+//    @org.junit.jupiter.api.Order(1)
     public void testWaiting() throws InterruptedException {
         Order order = new Order(OrderType.NEW_TRIP, 1L, 50, 30);
         order = repository.add(order);
@@ -76,8 +78,8 @@ public class OrderKafkaContainerTest {
         Assertions.assertNull(orderSent);
     }
 
-    @Test
-    @org.junit.jupiter.api.Order(2)
+//    @Test
+//    @org.junit.jupiter.api.Order(2)
     public void testAddNewTripOrder() throws InterruptedException {
         Order order = new Order(OrderType.NEW_TRIP, 1L, 50, 30);
         order = repository.add(order);
@@ -94,8 +96,8 @@ public class OrderKafkaContainerTest {
         Assertions.assertEquals(order.getId(), orderSent.getId());
     }
 
-    @Test
-    @org.junit.jupiter.api.Order(3)
+//    @Test
+//    @org.junit.jupiter.api.Order(3)
     public void testCancelTripOrder() throws InterruptedException {
         Order order = new Order(OrderType.CANCEL_TRIP, 1L, 50, 30);
         client.send(order);

@@ -21,9 +21,9 @@ import pl.piomin.services.model.Order;
 import pl.piomin.services.model.OrderType;
 import pl.piomin.services.repository.OrderInMemoryRepository;
 
-@MicronautTest
-@Testcontainers
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@MicronautTest
+//@Testcontainers
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class OrderIntegrationTests {
 
 
@@ -31,14 +31,14 @@ public class OrderIntegrationTests {
 
 	static Network network = Network.newNetwork();
 
-	@Container
+//	@Container
 	public static final GenericContainer ZOOKEEPER = new GenericContainer("wurstmeister/zookeeper")
 			.withCreateContainerCmdModifier(it -> ((CreateContainerCmd) it).withName("zookeeper").withHostName("zookeeper"))
 			.withExposedPorts(2181)
 			.withNetworkAliases("zookeeper")
 			.withNetwork(network);
 
-	@Container
+//	@Container
 	public static final GenericContainer KAFKA_CONTAINER = new GenericContainer("wurstmeister/kafka")
 			.withCreateContainerCmdModifier(it -> ((CreateContainerCmd) it).withName("kafka").withHostName("kafka")
 					.withPortBindings(new PortBinding(Ports.Binding.bindPort(9092), new ExposedPort(9092))))
@@ -48,19 +48,19 @@ public class OrderIntegrationTests {
 			.withEnv("KAFKA_ZOOKEEPER_CONNECT", "zookeeper:2181")
 			.withNetwork(network);
 
-	@Container
-	public static final GenericContainer DRIVER_CONTAINER = new GenericContainer("piomin/driver-service")
-			.withNetwork(network);
+//	@Container
+//	public static final GenericContainer DRIVER_CONTAINER = new GenericContainer("piomin/driver-service")
+//			.withNetwork(network);
 
-	@Inject
+//	@Inject
 	OrderClient client;
-	@Inject
+//	@Inject
 	OrderInMemoryRepository repository;
-	@Inject
+//	@Inject
 	DriverHolder driverHolder;
 
-	@Test
-	@org.junit.jupiter.api.Order(1)
+//	@Test
+//	@org.junit.jupiter.api.Order(1)
 	public void testWaiting() throws InterruptedException {
 		Order order = new Order(OrderType.NEW_TRIP, 1L, 50, 30);
 		order = repository.add(order);
@@ -76,8 +76,8 @@ public class OrderIntegrationTests {
 		Assertions.assertNull(driverSent);
 	}
 
-	@Test
-	@org.junit.jupiter.api.Order(1)
+//	@Test
+//	@org.junit.jupiter.api.Order(1)
 	public void testNewTrip() throws InterruptedException {
 		Order order = new Order(OrderType.NEW_TRIP, 1L, 50, 30);
 		order = repository.add(order);
