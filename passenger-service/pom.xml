@@ -13,6 +13,7 @@
 
     <properties>
         <exec.mainClass>pl.piomin.services.PassengerApplication</exec.mainClass>
+        <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
     </properties>
 
     <dependencies>
