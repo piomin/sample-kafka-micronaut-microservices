@@ -1,7 +1,6 @@
 package pl.piomin.services;
 
-import javax.inject.Singleton;
-
+import jakarta.inject.Singleton;
 import pl.piomin.services.model.Order;
 
 @Singleton

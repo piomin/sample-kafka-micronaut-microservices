@@ -1,8 +1,6 @@
 package pl.piomin.services;
 
-import io.micronaut.configuration.kafka.embedded.KafkaEmbedded;
 import io.micronaut.context.annotation.Property;
-import io.micronaut.test.annotation.MicronautTest;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +13,7 @@ import pl.piomin.services.model.Driver;
 import pl.piomin.services.model.DriverStatus;
 import pl.piomin.services.repository.DriverInMemoryRepository;
 
-import javax.inject.Inject;
+//import javax.inject.Inject;
 import java.util.Optional;
 import java.util.Set;
 
@@ -31,7 +29,7 @@ public class DriverKafkaEmbeddedTest {
 //    @Inject
     DriverInMemoryRepository repository;
 //    @Inject
-    KafkaEmbedded kafkaEmbedded;
+//    KafkaEmbedded kafkaEmbedded;
 //    @Inject
     OrderHolder orderHolder;
 //    @Inject

@@ -1,5 +1,6 @@
 package pl.piomin.services.service;
 
+import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.piomin.services.model.Order;
@@ -7,7 +8,6 @@ import pl.piomin.services.model.OrderStatus;
 import pl.piomin.services.model.OrderType;
 import pl.piomin.services.repository.OrderInMemoryRepository;
 
-import javax.inject.Singleton;
 import java.util.Optional;
 
 @Singleton

@@ -1,10 +1,10 @@
 package pl.piomin.services.repository;
 
+import jakarta.inject.Singleton;
 import pl.piomin.services.model.Driver;
 import pl.piomin.services.model.DriverStatus;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Singleton;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Optional;

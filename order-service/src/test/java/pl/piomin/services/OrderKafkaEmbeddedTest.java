@@ -1,16 +1,6 @@
 package pl.piomin.services;
 
-import java.util.Optional;
-
-import io.micronaut.configuration.kafka.embedded.KafkaEmbedded;
-import io.micronaut.context.annotation.Property;
-import io.micronaut.test.annotation.MicronautTest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.piomin.services.client.OrderClient;
@@ -19,7 +9,7 @@ import pl.piomin.services.model.OrderStatus;
 import pl.piomin.services.model.OrderType;
 import pl.piomin.services.repository.OrderInMemoryRepository;
 
-import javax.inject.Inject;
+import java.util.Optional;
 
 //@MicronautTest
 //@Property(name = "kafka.embedded.enabled", value = "true")
@@ -37,7 +27,7 @@ public class OrderKafkaEmbeddedTest {
 //    @Inject
     OrderHolder orderHolder;
 //    @Inject
-    KafkaEmbedded kafkaEmbedded;
+//    KafkaEmbedded kafkaEmbedded;
 
 //    @BeforeAll
     public void init() {

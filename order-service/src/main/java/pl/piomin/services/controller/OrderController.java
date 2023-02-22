@@ -8,16 +8,18 @@ import pl.piomin.services.client.OrderClient;
 import pl.piomin.services.model.Order;
 import pl.piomin.services.repository.OrderInMemoryRepository;
 
-import javax.inject.Inject;
 import java.util.Set;
 
 @Controller("orders")
 public class OrderController {
 
-    @Inject
     OrderInMemoryRepository repository;
-    @Inject
     OrderClient client;
+
+    public OrderController(OrderInMemoryRepository repository, OrderClient client) {
+        this.repository = repository;
+        this.client = client;
+    }
 
     @Post
     public Order add(@Body Order order) {

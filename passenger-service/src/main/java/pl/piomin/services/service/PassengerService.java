@@ -1,5 +1,6 @@
 package pl.piomin.services.service;
 
+import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.piomin.services.client.OrderClient;
@@ -9,7 +10,6 @@ import pl.piomin.services.integration.Trip;
 import pl.piomin.services.model.Passenger;
 import pl.piomin.services.repository.PassengerInMemoryRepository;
 
-import javax.inject.Singleton;
 import java.util.Optional;
 
 @Singleton

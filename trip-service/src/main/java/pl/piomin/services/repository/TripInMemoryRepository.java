@@ -1,8 +1,8 @@
 package pl.piomin.services.repository;
 
+import jakarta.inject.Singleton;
 import pl.piomin.services.model.Trip;
 
-import javax.inject.Singleton;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Optional;

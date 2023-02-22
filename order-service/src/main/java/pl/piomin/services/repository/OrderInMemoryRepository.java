@@ -1,9 +1,9 @@
 package pl.piomin.services.repository;
 
+import jakarta.inject.Singleton;
 import pl.piomin.services.model.Order;
 import pl.piomin.services.model.OrderType;
 
-import javax.inject.Singleton;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Optional;

@@ -1,5 +1,6 @@
 package pl.piomin.services.service;
 
+import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.piomin.services.client.TripClient;
@@ -9,7 +10,6 @@ import pl.piomin.services.model.Trip;
 import pl.piomin.services.model.TripStatus;
 import pl.piomin.services.repository.TripInMemoryRepository;
 
-import javax.inject.Singleton;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;

@@ -1,5 +1,6 @@
 package pl.piomin.services.service;
 
+import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.piomin.services.client.DriverClient;
@@ -7,12 +8,10 @@ import pl.piomin.services.client.OrderClient;
 import pl.piomin.services.integration.Order;
 import pl.piomin.services.integration.OrderType;
 import pl.piomin.services.integration.Trip;
-import pl.piomin.services.listener.OrderListener;
 import pl.piomin.services.model.Driver;
 import pl.piomin.services.model.DriverStatus;
 import pl.piomin.services.repository.DriverInMemoryRepository;
 
-import javax.inject.Singleton;
 import java.util.Optional;
 
 @Singleton

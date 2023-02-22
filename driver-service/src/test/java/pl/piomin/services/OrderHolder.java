@@ -1,8 +1,7 @@
 package pl.piomin.services;
 
+import jakarta.inject.Singleton;
 import pl.piomin.services.integration.Order;
-
-import javax.inject.Singleton;
 
 @Singleton
 public class OrderHolder {
