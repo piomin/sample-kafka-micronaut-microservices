@@ -14,6 +14,7 @@
     <properties>
         <exec.mainClass>pl.piomin.services.OrderApplication</exec.mainClass>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
+        <micronaut.test.resources.enabled>true</micronaut.test.resources.enabled>
     </properties>
 
     <dependencies>
@@ -45,12 +46,12 @@
             <groupId>io.micronaut.tracing</groupId>
             <artifactId>micronaut-tracing-zipkin</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.opentracing.contrib</groupId>
-            <artifactId>opentracing-kafka-client</artifactId>
-            <version>0.0.16</version>
-            <scope>runtime</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.opentracing.contrib</groupId>-->
+<!--            <artifactId>opentracing-kafka-client</artifactId>-->
+<!--&lt;!&ndash;            <version>0.0.16</version>&ndash;&gt;-->
+<!--            <scope>runtime</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -96,13 +97,11 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>kafka</artifactId>
-            <version>1.12.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>1.12.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
