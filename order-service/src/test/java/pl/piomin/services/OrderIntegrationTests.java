@@ -1,5 +1,8 @@
 package pl.piomin.services;
 
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.client.HttpClient;
+import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Assertions;
@@ -23,6 +26,9 @@ public class OrderIntegrationTests {
 	private static final Logger LOGGER = LoggerFactory.getLogger(OrderKafkaContainerTest.class);
 
 	@Inject
+	@Client("/")
+	HttpClient httpClient;
+	@Inject
 	OrderClient client;
 	@Inject
 	OrderInMemoryRepository repository;
@@ -33,8 +39,10 @@ public class OrderIntegrationTests {
 	@org.junit.jupiter.api.Order(1)
 	public void testWaiting() throws InterruptedException {
 		Order order = new Order(OrderType.NEW_TRIP, 1L, 50, 30);
-		order = repository.add(order);
-		client.send(order);
+//		order = repository.add(order);
+//		client.send(order);
+		order = httpClient.toBlocking()
+				.retrieve(HttpRequest.POST("/orders", order), Order.class);
 		Driver driverSent = null;
 		for (int i = 0; i < 10; i++) {
 			driverSent = driverHolder.getCurrentDriver();
