@@ -1,4 +1,4 @@
-package pl.piomin.services;
+package pl.piomin.services.utils;
 
 import io.micronaut.configuration.kafka.annotation.KafkaListener;
 import io.micronaut.configuration.kafka.annotation.Topic;
@@ -18,7 +18,7 @@ public class DriverConfirmListener {
 		this.driverHolder = driverHolder;
 	}
 
-	@Topic("orders")
+	@Topic("drivers")
 	public void receive(@MessageBody Driver driver) {
 		LOGGER.info("Confirmed: {}", driver);
 		driverHolder.setCurrentDriver(driver);

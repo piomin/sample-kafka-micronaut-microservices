@@ -1,4 +1,4 @@
-package pl.piomin.services;
+package pl.piomin.services.utils;
 
 import jakarta.inject.Singleton;
 import pl.piomin.services.model.Driver;

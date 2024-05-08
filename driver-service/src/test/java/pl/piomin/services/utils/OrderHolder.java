@@ -1,4 +1,4 @@
-package pl.piomin.services;
+package pl.piomin.services.utils;
 
 import jakarta.inject.Singleton;
 import pl.piomin.services.integration.Order;
@@ -8,11 +8,11 @@ public class OrderHolder {
 
 	private Order currentOrder;
 
-	Order getCurrentOrder() {
+	public Order getCurrentOrder() {
 		return currentOrder;
 	}
 
-	void setCurrentOrder(Order currentOrder) {
+	public void setCurrentOrder(Order currentOrder) {
 		this.currentOrder = currentOrder;
 	}
 

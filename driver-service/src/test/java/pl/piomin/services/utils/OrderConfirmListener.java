@@ -1,4 +1,4 @@
-package pl.piomin.services;
+package pl.piomin.services.utils;
 
 import io.micronaut.configuration.kafka.annotation.KafkaListener;
 import io.micronaut.configuration.kafka.annotation.Topic;

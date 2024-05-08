@@ -30,19 +30,19 @@ public class DriverService {
     }
 
     public void processNewTripOrder(Order order) {
-        LOGGER.info("Processing: {}", order);
+        LOGGER.info("New Trip: {}", order);
         Optional<Driver> driver = repository.findNearestDriver(order.getCurrentLocationX(), order.getCurrentLocationY());
         if (driver.isPresent()) {
             Driver driverLocal = driver.get();
             driverLocal.setStatus(DriverStatus.UNAVAILABLE);
             repository.updateDriver(driverLocal);
             client.send(driverLocal, String.valueOf(order.getId()));
-            LOGGER.info("Message sent: {}", driverLocal);
+            LOGGER.info("Driver sent: {}", driverLocal);
         }
     }
 
     public void processTripRejected(Trip trip) {
-        LOGGER.info("Processing: {}", trip);
+        LOGGER.info("Rejected Trip: {}", trip);
         Optional<Driver> driver = repository.findById(trip.getDriverId());
         driver.ifPresent(driverLocal -> {
             driverLocal.setStatus(DriverStatus.AVAILABLE);
@@ -51,7 +51,7 @@ public class DriverService {
     }
 
     public void processTripFinished(Trip trip) {
-        LOGGER.info("Processing: {}", trip);
+        LOGGER.info("Finished Trip: {}", trip);
         Optional<Driver> driver = repository.findById(trip.getDriverId());
         if (driver.isPresent()) {
             Driver driverLocal = driver.get();
@@ -59,7 +59,7 @@ public class DriverService {
             repository.updateDriver(driverLocal);
             Order order = new Order(OrderType.PAYMENT_PROCESSED, driverLocal.getId(), trip.getId());
             orderClient.send(order);
-            LOGGER.info("Message sent: {}", order);
+            LOGGER.info("Order sent: {}", order);
         }
     }
 }

@@ -23,6 +23,16 @@ public class Order {
         this.tripId = tripId;
     }
 
+    public Order(Long id, OrderType type, Long userId, Long tripId, float currentLocationX, float currentLocationY) {
+        this.createdAt = LocalDateTime.now();
+        this.id = id;
+        this.type = type;
+        this.userId = userId;
+        this.tripId = tripId;
+        this.currentLocationX = currentLocationX;
+        this.currentLocationY = currentLocationY;
+    }
+
     public Long getId() {
         return id;
     }
