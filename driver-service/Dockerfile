@@ -1,4 +1,4 @@
-FROM openjdk:12-alpine
+FROM openjdk:17-alpine
 ENV JAR_FILE driver-service-1.0-SNAPSHOT.jar
 ENV APP_HOME /usr/app
 EXPOSE 8080
