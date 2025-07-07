@@ -16,7 +16,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <micronaut.version>3.8.5</micronaut.version>
+        <micronaut.version>4.9.7</micronaut.version>
         <jdk.version>17</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.projectKey>piomin_sample-kafka-micronaut-microservices</sonar.projectKey>
