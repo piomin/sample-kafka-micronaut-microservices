@@ -1,9 +1,9 @@
 package pl.piomin.services.repository;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.inject.Singleton;
 import pl.piomin.services.model.Passenger;
 
-import javax.annotation.PostConstruct;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
