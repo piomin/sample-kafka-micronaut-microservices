@@ -1,5 +1,6 @@
 package pl.piomin.services;
 
+import io.micronaut.context.annotation.Property;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.*;
@@ -20,12 +21,9 @@ import pl.piomin.services.utils.TripClient;
 import java.util.Optional;
 import java.util.Set;
 
-//import javax.inject.Inject;
-
-
 @MicronautTest
-//@Property(name = "kafka.embedded.enabled", value = "true")
-//@Property(name = "kafka.bootstrap.servers", value = "localhost:9092")
+@Property(name = "kafka.embedded.enabled", value = "true")
+@Property(name = "kafka.bootstrap.servers", value = "localhost:9092")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DriverKafkaEmbeddedTest {
